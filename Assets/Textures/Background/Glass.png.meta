@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 632984b59794a2a40aa42c671c1139eb
+guid: 3dbc836f534d05b45bc3d2e06ca093f9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4426841645092730229
-    second: Mathbox_0
+      213: 2990443057539896228
+    second: Glass_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mathbox_0
+      name: Glass_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 856
-        height: 925
+        width: 1980
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57578a4950d4f6d30800000000000000
-      internalID: 4426841645092730229
+      spriteID: 4a3d2b5ed10308920800000000000000
+      internalID: 2990443057539896228
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mathbox_0: 4426841645092730229
+      Glass_0: 2990443057539896228
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
