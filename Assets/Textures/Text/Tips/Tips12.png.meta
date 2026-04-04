@@ -1,0 +1,1638 @@
+fileFormatVersion: 2
+guid: dbd5d84adc5f80745bb540ab2f50364e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5994064882082783330
+    second: Tips12_0
+  - first:
+      213: 5261875942483493395
+    second: Tips12_1
+  - first:
+      213: -7844061897089587877
+    second: Tips12_2
+  - first:
+      213: 6125391109256966016
+    second: Tips12_3
+  - first:
+      213: 2942616731314018044
+    second: Tips12_4
+  - first:
+      213: -5831424409027777097
+    second: Tips12_5
+  - first:
+      213: -5601608300366807441
+    second: Tips12_6
+  - first:
+      213: 2069115332103700781
+    second: Tips12_7
+  - first:
+      213: 5461632064035044428
+    second: Tips12_8
+  - first:
+      213: 7003162859720177256
+    second: Tips12_9
+  - first:
+      213: 6616572792489469167
+    second: Tips12_10
+  - first:
+      213: -3819583216703048301
+    second: Tips12_11
+  - first:
+      213: -4496399139307120492
+    second: Tips12_12
+  - first:
+      213: 8567017040026529386
+    second: Tips12_13
+  - first:
+      213: 1471503653655895476
+    second: Tips12_14
+  - first:
+      213: -5238998043754951877
+    second: Tips12_15
+  - first:
+      213: -4188170928246984023
+    second: Tips12_16
+  - first:
+      213: 7854930382716618985
+    second: Tips12_17
+  - first:
+      213: 7383187521011044705
+    second: Tips12_18
+  - first:
+      213: 223302114122155318
+    second: Tips12_19
+  - first:
+      213: -7549964676391207043
+    second: Tips12_20
+  - first:
+      213: -2676839149543209946
+    second: Tips12_21
+  - first:
+      213: 590339394346712723
+    second: Tips12_22
+  - first:
+      213: 8478491047536316102
+    second: Tips12_23
+  - first:
+      213: -4424650619759947151
+    second: Tips12_24
+  - first:
+      213: -7854254257566393540
+    second: Tips12_25
+  - first:
+      213: -8594878463937663287
+    second: Tips12_26
+  - first:
+      213: 2589937903426744214
+    second: Tips12_27
+  - first:
+      213: -7979362873311946130
+    second: Tips12_28
+  - first:
+      213: 1448625945103429913
+    second: Tips12_29
+  - first:
+      213: -2113877685331758691
+    second: Tips12_30
+  - first:
+      213: -4607111571104714720
+    second: Tips12_31
+  - first:
+      213: -6332528726862887438
+    second: Tips12_32
+  - first:
+      213: -6120889372642698039
+    second: Tips12_33
+  - first:
+      213: -4730265463202687029
+    second: Tips12_34
+  - first:
+      213: 4567153805593904728
+    second: Tips12_35
+  - first:
+      213: -2790972862097887890
+    second: Tips12_36
+  - first:
+      213: -2963258369845639112
+    second: Tips12_37
+  - first:
+      213: -3796511475733311397
+    second: Tips12_38
+  - first:
+      213: -7726923024605864967
+    second: Tips12_39
+  - first:
+      213: -1351001696208739813
+    second: Tips12_40
+  - first:
+      213: 742878940108076577
+    second: Tips12_41
+  - first:
+      213: -4407987880857865930
+    second: Tips12_42
+  - first:
+      213: 2579441390626622953
+    second: Tips12_43
+  - first:
+      213: -1058278109312244958
+    second: Tips12_44
+  - first:
+      213: 3307452067923339581
+    second: Tips12_45
+  - first:
+      213: -1998367989782157232
+    second: Tips12_46
+  - first:
+      213: -7005368304609349408
+    second: Tips12_47
+  - first:
+      213: 4816307275642123774
+    second: Tips12_48
+  - first:
+      213: 1629271761892372322
+    second: Tips12_49
+  - first:
+      213: -1908105991536906393
+    second: Tips12_50
+  - first:
+      213: 2659498964293210805
+    second: Tips12_51
+  - first:
+      213: -5285372975879448933
+    second: Tips12_52
+  - first:
+      213: -8116891106981596174
+    second: Tips12_53
+  - first:
+      213: -3232078591861954884
+    second: Tips12_54
+  - first:
+      213: -3761935590710385363
+    second: Tips12_55
+  - first:
+      213: -2660622062272628713
+    second: Tips12_56
+  - first:
+      213: -8159163688703417619
+    second: Tips12_57
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tips12_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 115
+        width: 51
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 260203990423f2350800000000000000
+      internalID: 5994064882082783330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_1
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 115
+        width: 36
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31207e38a40f50940800000000000000
+      internalID: 5261875942483493395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 115
+        width: 24
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b556cc3a34b442390800000000000000
+      internalID: -7844061897089587877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_3
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 115
+        width: 43
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08fe89992c2c10550800000000000000
+      internalID: 6125391109256966016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_4
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 115
+        width: 24
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf6d714935646d820800000000000000
+      internalID: 2942616731314018044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_5
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 171
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bd6b5d656e921fa0800000000000000
+      internalID: -5831424409027777097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_6
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 115
+        width: 43
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6eb1cdede61342b0800000000000000
+      internalID: -5601608300366807441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_7
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 115
+        width: 42
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d210b519e69f6bc10800000000000000
+      internalID: 2069115332103700781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_8
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 115
+        width: 49
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4c31bedc6d9bcb40800000000000000
+      internalID: 5461632064035044428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_9
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 171
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86674dd348b303160800000000000000
+      internalID: 7003162859720177256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_10
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 171
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe469de06e9c2db50800000000000000
+      internalID: 6616572792489469167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_11
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 115
+        width: 36
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 395fe5a2d4d1efac0800000000000000
+      internalID: -3819583216703048301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_12
+      rect:
+        serializedVersion: 2
+        x: 1467
+        y: 115
+        width: 49
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4981a354ec49991c0800000000000000
+      internalID: -4496399139307120492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_13
+      rect:
+        serializedVersion: 2
+        x: 1571
+        y: 115
+        width: 36
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6eef7f9b9824e670800000000000000
+      internalID: 8567017040026529386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_14
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 171
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bd59d1d6c4db6410800000000000000
+      internalID: 1471503653655895476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_15
+      rect:
+        serializedVersion: 2
+        x: 1633
+        y: 115
+        width: 46
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b050f59075b47b0800000000000000
+      internalID: -5238998043754951877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_16
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 115
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a2783b0bb0a0e5c0800000000000000
+      internalID: -4188170928246984023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_17
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 115
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e84f3dd091520d60800000000000000
+      internalID: 7854930382716618985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_18
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 115
+        width: 39
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 161d5fbbee9567660800000000000000
+      internalID: 7383187521011044705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_19
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 118
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63548d5f614591300800000000000000
+      internalID: 223302114122155318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_20
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 115
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7f74f4d023293790800000000000000
+      internalID: -7549964676391207043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_21
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 96
+        width: 48
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6244e9ad9f4f9dad0800000000000000
+      internalID: -2676839149543209946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_22
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 115
+        width: 14
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39e74f82d8e413800800000000000000
+      internalID: 590339394346712723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_23
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 115
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ce4bbfcfa6a9a570800000000000000
+      internalID: 8478491047536316102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_24
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 145
+        width: 41
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1721ff144bb7892c0800000000000000
+      internalID: -4424650619759947151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_25
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 115
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3bd72acd55100390800000000000000
+      internalID: -7854254257566393540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_26
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 115
+        width: 71
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ce275d139bd8b880800000000000000
+      internalID: -8594878463937663287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_27
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 115
+        width: 14
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69f22141dce41f320800000000000000
+      internalID: 2589937903426744214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_28
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 115
+        width: 47
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6a1d424ebb934190800000000000000
+      internalID: -7979362873311946130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_29
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 115
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 911fd463f9d8a1410800000000000000
+      internalID: 1448625945103429913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_30
+      rect:
+        serializedVersion: 2
+        x: 1111
+        y: 115
+        width: 39
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d91fc2be17ff9a2e0800000000000000
+      internalID: -2113877685331758691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_31
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 115
+        width: 14
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02036b38f604010c0800000000000000
+      internalID: -4607111571104714720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_32
+      rect:
+        serializedVersion: 2
+        x: 1201
+        y: 115
+        width: 71
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f581619ca65e18a0800000000000000
+      internalID: -6332528726862887438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_33
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 115
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cc1b22ab8b3e0ba0800000000000000
+      internalID: -6120889372642698039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_34
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 115
+        width: 47
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc7518c8f98ba5eb0800000000000000
+      internalID: -4730265463202687029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_35
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 115
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8568ff8303ac16f30800000000000000
+      internalID: 4567153805593904728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_36
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 115
+        width: 14
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6d66e818f87449d0800000000000000
+      internalID: -2790972862097887890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_37
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 126
+        width: 41
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 838c5af663460e6d0800000000000000
+      internalID: -2963258369845639112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_38
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 115
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b50d8377de4105bc0800000000000000
+      internalID: -3796511475733311397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_39
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 0
+        width: 36
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb9497b27474c490800000000000000
+      internalID: -7726923024605864967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_40
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 0
+        width: 49
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b12278e7d17404de0800000000000000
+      internalID: -1351001696208739813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_41
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 56
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 126b248c57c3f4a00800000000000000
+      internalID: 742878940108076577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_42
+      rect:
+        serializedVersion: 2
+        x: 977
+        y: 0
+        width: 42
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6317d3b706ea3d2c0800000000000000
+      internalID: -4407987880857865930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_43
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 56
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ed4d3f37440cc320800000000000000
+      internalID: 2579441390626622953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_44
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 0
+        width: 60
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2232fd4aaad3051f0800000000000000
+      internalID: -1058278109312244958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_45
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 0
+        width: 60
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d39a334d12e66ed20800000000000000
+      internalID: 3307452067923339581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_46
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 0
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 058e58ea6ee5444e0800000000000000
+      internalID: -1998367989782157232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_47
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 0
+        width: 35
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e0bafa94aee7ce90800000000000000
+      internalID: -7005368304609349408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_48
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 0
+        width: 47
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef537c503f5f6d240800000000000000
+      internalID: 4816307275642123774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_49
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 0
+        width: 39
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26f6b2209065c9610800000000000000
+      internalID: 1629271761892372322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_50
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 0
+        width: 14
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76fe5a4d5bb0585e0800000000000000
+      internalID: -1908105991536906393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_51
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 0
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b25737a73078e420800000000000000
+      internalID: 2659498964293210805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_52
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 0
+        width: 35
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b969143184596a6b0800000000000000
+      internalID: -5285372975879448933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_53
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 0
+        width: 71
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f3b5d71b820b5f80800000000000000
+      internalID: -8116891106981596174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_54
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 0
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb66ced15a95523d0800000000000000
+      internalID: -3232078591861954884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_55
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 14
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d25eec7038beacbc0800000000000000
+      internalID: -3761935590710385363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_56
+      rect:
+        serializedVersion: 2
+        x: 1046
+        y: 0
+        width: 47
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7183ca8b452931bd0800000000000000
+      internalID: -2660622062272628713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tips12_57
+      rect:
+        serializedVersion: 2
+        x: 1257
+        y: 0
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de2219eaad3d4ce80800000000000000
+      internalID: -8159163688703417619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Tips12_0: 5994064882082783330
+      Tips12_1: 5261875942483493395
+      Tips12_10: 6616572792489469167
+      Tips12_11: -3819583216703048301
+      Tips12_12: -4496399139307120492
+      Tips12_13: 8567017040026529386
+      Tips12_14: 1471503653655895476
+      Tips12_15: -5238998043754951877
+      Tips12_16: -4188170928246984023
+      Tips12_17: 7854930382716618985
+      Tips12_18: 7383187521011044705
+      Tips12_19: 223302114122155318
+      Tips12_2: -7844061897089587877
+      Tips12_20: -7549964676391207043
+      Tips12_21: -2676839149543209946
+      Tips12_22: 590339394346712723
+      Tips12_23: 8478491047536316102
+      Tips12_24: -4424650619759947151
+      Tips12_25: -7854254257566393540
+      Tips12_26: -8594878463937663287
+      Tips12_27: 2589937903426744214
+      Tips12_28: -7979362873311946130
+      Tips12_29: 1448625945103429913
+      Tips12_3: 6125391109256966016
+      Tips12_30: -2113877685331758691
+      Tips12_31: -4607111571104714720
+      Tips12_32: -6332528726862887438
+      Tips12_33: -6120889372642698039
+      Tips12_34: -4730265463202687029
+      Tips12_35: 4567153805593904728
+      Tips12_36: -2790972862097887890
+      Tips12_37: -2963258369845639112
+      Tips12_38: -3796511475733311397
+      Tips12_39: -7726923024605864967
+      Tips12_4: 2942616731314018044
+      Tips12_40: -1351001696208739813
+      Tips12_41: 742878940108076577
+      Tips12_42: -4407987880857865930
+      Tips12_43: 2579441390626622953
+      Tips12_44: -1058278109312244958
+      Tips12_45: 3307452067923339581
+      Tips12_46: -1998367989782157232
+      Tips12_47: -7005368304609349408
+      Tips12_48: 4816307275642123774
+      Tips12_49: 1629271761892372322
+      Tips12_5: -5831424409027777097
+      Tips12_50: -1908105991536906393
+      Tips12_51: 2659498964293210805
+      Tips12_52: -5285372975879448933
+      Tips12_53: -8116891106981596174
+      Tips12_54: -3232078591861954884
+      Tips12_55: -3761935590710385363
+      Tips12_56: -2660622062272628713
+      Tips12_57: -8159163688703417619
+      Tips12_6: -5601608300366807441
+      Tips12_7: 2069115332103700781
+      Tips12_8: 5461632064035044428
+      Tips12_9: 7003162859720177256
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
