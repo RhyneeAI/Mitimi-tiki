@@ -3,16 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject mainPanel;
+    public GameObject panel;
 
     public void ShowPanel()
     {
-        mainPanel.SetActive(true);
+        if(panel)
+        {
+            panel.SetActive(true);
+        }
     }
 
     public void HidePanel()
     {
-        mainPanel.SetActive(false);
+        panel.SetActive(false);
     }
 
     public void LoadScene(string sceneName)
