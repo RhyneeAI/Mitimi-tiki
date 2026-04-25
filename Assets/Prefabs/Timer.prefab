@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6685741952646235854}
   - component: {fileID: 3993563019073759509}
   m_Layer: 5
-  m_Name: Label
+  m_Name: TimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 14.9
+  m_text: 15.0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 368fb1622a7aa7246a7729e32a83a11e, type: 2}
   m_sharedMaterial: {fileID: -4302187969591913637, guid: 368fb1622a7aa7246a7729e32a83a11e, type: 2}

@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5480964428723549412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8816997603956670564}
+  - component: {fileID: 8642447004493041804}
+  m_Layer: 5
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8816997603956670564
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5480964428723549412}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 469.875, y: 242.62498}
+  m_SizeDelta: {x: 939.75, y: 485.24997}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8642447004493041804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5480964428723549412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d57444706cc73d489376b5bc1f165f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  question: {fileID: 0}
+  score: {fileID: 0}
+  level:
+  - {fileID: 0}
+  - {fileID: 0}
+  levelIcon:
+  - {fileID: 0}
+  - {fileID: 0}
+  health: {fileID: 0}
+  timer: {fileID: 0}
+  operand1: {fileID: 0}
+  _operator: {fileID: 0}
+  operand2: {fileID: 0}
+  answerA: {fileID: 0}
+  resultA:
+  - {fileID: 0}
+  - {fileID: 0}
+  answerB: {fileID: 0}
+  resultB:
+  - {fileID: 0}
+  - {fileID: 0}
+  answerC: {fileID: 0}
+  resultC:
+  - {fileID: 0}
+  - {fileID: 0}
+  answerD: {fileID: 0}
+  resultD:
+  - {fileID: 0}
+  - {fileID: 0}
+  aiManager: {fileID: 0}
+  uiManager: {fileID: 0}
+  homeSceneName: HomeScene
+  confirmPanel: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  currentScore: 0
+  currentLevel: 1
+  currentHealth: 5
+  totalQuestionCount: 0
+  totalCorrectAnswer: 0
