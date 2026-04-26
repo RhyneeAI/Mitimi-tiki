@@ -31,13 +31,17 @@ public class PanelManager : MonoBehaviour
     public void ClosePanel()
     {
         if (uiManager != null)
+        {
+            AudioManager.Instance?.PlayButtonClose();
             uiManager.HidePanel(gameObject);
+        }
     }
 
     public void NextPanel()
     {
         if (isTransitioning) return;
 
+        AudioManager.Instance?.PlayButtonClick();
         int nextIndex = currentIndex + 1;
         if (nextIndex < subPanels.Length)
             ShowPanel(nextIndex);
@@ -47,6 +51,7 @@ public class PanelManager : MonoBehaviour
     {
         if (isTransitioning) return;
 
+        AudioManager.Instance?.PlayButtonClick();
         int prevIndex = currentIndex - 1;
         if (prevIndex >= 0)
             ShowPanel(prevIndex);

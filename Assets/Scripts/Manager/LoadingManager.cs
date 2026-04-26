@@ -11,7 +11,10 @@ public class LoadingManager : MonoBehaviour
     [SerializeField] private Sprite[] loadingFrames;
     [SerializeField] private TMP_Text tipsText;
     [SerializeField] private float minimumLoadingTime = 5f;
-    [SerializeField] private float tipChangeInterval = 2f;
+    [SerializeField] private float tipChangeInterval = 2.5f;
+
+    [Header("Manager")]
+    private UIManager uiManager;
 
     private int currentTipIndex = -1;
 
@@ -20,11 +23,30 @@ public class LoadingManager : MonoBehaviour
         "Matematika itu kayak lari sprint. Cepat + tepat = juara!",
         "Salah sekali masih aman. Salah lima kali? Ya… bye bye.",
         "Semakin cepat jawab, semakin keren. Otakmu lagi nge-boost mode turbo!",
+        "Kesulitan naik otomatis. Anggap aja boss level makin kuat.",
+        "Terkadang jawaban yang benar itu lebih penting daripada kecepatan",
+        "Skor tinggi bikin puas. Tapi bertahan lama bikin panas.",
+        "Matematika = olahraga otak. Main terus, otak makin lentur.",
+        "HP habis = Game Over. Jadi jangan boros salah, hemat nyawa!",
+        "Semakin lama bertahan, semakin epic. Kayak marathon, bukan sprint doang.",
+        "Refleks + logika = kombinasi maut. Latih terus biar makin GG.",
+        "Main boleh, tapi jangan lupa injak rumput ya",
+        "Anggap soal kayak monster. Jawaban benar = critical hit!",
+        "Main santai boleh, tapi ingat ada batas waktu jawab. Jangan sampai kebablasan.",
+        "Kamu jago gak?, coba sampai level paling tinggi dong!",
+        "Ya siapa tau aja kan, setelah kamu main game ini IQ mu naik gitu...",
+        "Tantangan didepan mata, tinggal kamu milih untuk jadi PEMENANG atau PECUNDANG ?",
+        "Siapa cepat dia dapat...",
+        "Jangan lupa cek leaderboard untuk lihat ranking kamu ya",
+        "Ingat, ada waktu dan ada nyawa, jangan sampai lengah!",
+        "Lalalalalalala...",
+        "Kalau jago pasti bisa !!!"
     };
 
     void Start()
     {
-        ShowRandomTip();
+        if(tipsText)
+            ShowRandomTip();
         StartCoroutine(LoadSceneAsync(LoadingContext.targetScene)); // ← baca dari context
     }
 
@@ -66,7 +88,7 @@ public class LoadingManager : MonoBehaviour
             loadTimer += Time.deltaTime;
             tipTimer  += Time.deltaTime;
 
-            float realProgress    = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            float realProgress    = Mathf.Clamp01(asyncLoad.progress / 0.919f);
             float fakeProgress    = Mathf.Clamp01(loadTimer / minimumLoadingTime);
             float displayProgress = Mathf.Min(realProgress, fakeProgress);
 
@@ -89,9 +111,7 @@ public class LoadingManager : MonoBehaviour
             bool firebaseReady = !LoadingContext.waitForFirebase || LoadingContext.firebaseDone;
 
             if (sceneReady && timeReady && firebaseReady)
-            {
                 asyncLoad.allowSceneActivation = true;
-            }
 
             yield return null;
         }

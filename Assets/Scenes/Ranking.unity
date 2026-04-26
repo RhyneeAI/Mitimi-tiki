@@ -823,6 +823,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42fe28f10b4e38a4b851fbf175411988, type: 3}
+--- !u!114 &611033352 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5904844424503804994, guid: 42fe28f10b4e38a4b851fbf175411988, type: 3}
+  m_PrefabInstance: {fileID: 611033351}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb31b18966a1f44f8abdca34d090e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,13 +1150,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ScrollRect
   m_Content: {fileID: 0}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 5.1
   m_Viewport: {fileID: 878132953}
   m_HorizontalScrollbar: {fileID: 633805861}
   m_VerticalScrollbar: {fileID: 0}
@@ -1720,7 +1731,11 @@ PrefabInstance:
       objectReference: {fileID: 7480962188226714435, guid: 0b6d2c674ecb4f94898222f4dc94b257, type: 3}
     - target: {fileID: 2497902538698402864, guid: 64626cc129584c34489808faa99f2e96, type: 3}
       propertyPath: m_Name
-      value: Close
+      value: Home
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497902538698402864, guid: 64626cc129584c34489808faa99f2e96, type: 3}
+      propertyPath: m_TagString
+      value: ButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 6532192556592935049, guid: 64626cc129584c34489808faa99f2e96, type: 3}
       propertyPath: m_Pivot.x
@@ -1809,10 +1824,10 @@ PrefabInstance:
     - target: {fileID: 8163756624380339133, guid: 64626cc129584c34489808faa99f2e96, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1494521430}
+      objectReference: {fileID: 611033352}
     - target: {fileID: 8163756624380339133, guid: 64626cc129584c34489808faa99f2e96, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadScene
+      value: LoadSceneWithLoading
       objectReference: {fileID: 0}
     - target: {fileID: 8163756624380339133, guid: 64626cc129584c34489808faa99f2e96, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

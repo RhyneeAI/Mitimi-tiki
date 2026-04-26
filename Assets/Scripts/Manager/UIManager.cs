@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     {
         if (panel == null) return;
 
+        AudioManager.Instance?.PlayModalOpen();
+
         panel.SetActive(true);
 
         PanelTransition transition = panel.GetComponent<PanelTransition>();
@@ -33,6 +35,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("test");
         if (panel == null) return;
+        AudioManager.Instance?.PlayButtonClose();
 
         PanelTransition transition = panel.GetComponent<PanelTransition>();
         if (transition != null)
@@ -71,6 +74,13 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void LoadSceneWithLoading(string targetScene)
+    {
+        LoadingContext.PrepareLoad(targetScene, false);
+        LoadingContext.firebaseDone = true;
+        LoadScene("Loading");
     }
 
     public void ReloadCurrentScene()

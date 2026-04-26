@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 315499145}
   m_Layer: 5
   m_Name: AnswerBoxC
-  m_TagString: Untagged
+  m_TagString: ButtonClick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -891,7 +891,7 @@ GameObject:
   - component: {fileID: 402277966}
   m_Layer: 5
   m_Name: AnswerBoxD
-  m_TagString: Untagged
+  m_TagString: ButtonClick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1450,7 +1450,7 @@ GameObject:
   - component: {fileID: 478437205}
   m_Layer: 5
   m_Name: HomeButton
-  m_TagString: Untagged
+  m_TagString: ModalOpen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2416,10 +2416,9 @@ GameObject:
   - component: {fileID: 732346374}
   - component: {fileID: 732346373}
   - component: {fileID: 732346372}
-  - component: {fileID: 732346375}
   m_Layer: 5
   m_Name: Confirm
-  m_TagString: Untagged
+  m_TagString: ButtonClick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2487,10 +2486,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 732346375}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 1284586321}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ConfirmExitToHome
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2537,21 +2536,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732346370}
   m_CullTransparentMesh: 1
---- !u!114 &732346375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732346370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdb31b18966a1f44f8abdca34d090e1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  popupDuration: 0.2
-  popupStartScale: {x: 0.7, y: 0.7, z: 0.7}
-  popupEndScale: {x: 1, y: 1, z: 1}
 --- !u!1 &803815582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3065,7 +3049,7 @@ GameObject:
   - component: {fileID: 1019464274}
   m_Layer: 5
   m_Name: AnswerBoxA
-  m_TagString: Untagged
+  m_TagString: ButtonClick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4164,7 +4148,7 @@ GameObject:
   - component: {fileID: 1338021417}
   m_Layer: 5
   m_Name: Deny
-  m_TagString: Untagged
+  m_TagString: ButtonClose
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4922,7 +4906,7 @@ GameObject:
   - component: {fileID: 1762723160}
   m_Layer: 5
   m_Name: AnswerBoxB
-  m_TagString: Untagged
+  m_TagString: ButtonClick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

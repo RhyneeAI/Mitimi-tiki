@@ -30,18 +30,19 @@ public class GameManager : MonoBehaviour
     [Header("Manager")]
     public AIManager aiManager;
     public UIManager uiManager;
-    public FirebaseManager firebaseManager;
 
     [Header("Panel")]
-    public string homeSceneName = "Home";
     public GameObject confirmPanel;
     public GameObject gameOverPanel;
     public GameObject startGamePanel;
 
     [Header("Game State")]
     public int currentScore = 0;
+    private int currentCorrectStreak = 0;
+    public float currentScoreMultiplier = 1f;
     public int currentLevel = 1;
     public int currentHealth = 5;
+    private int previousLevel = 1;
 
     private float currentTimer;
     private float totalTimerForQuestion;
@@ -119,7 +120,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     void Update()
@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour
         if (!playerNameInput.TrySubmit())
             return; // validasi gagal, pesan sudah tampil di InformationMessage
 
+        AudioManager.Instance?.PlayGameStart();
         uiManager.HidePanel(startGamePanel);
 
         // Nama valid, lanjut mulai game
@@ -165,6 +166,7 @@ public class GameManager : MonoBehaviour
 
         aiManager.ResetAI();
         currentLevel = aiManager.currentLevel;
+        previousLevel = currentLevel;
 
         UpdateHUD();
         GenerateNewQuestion();
@@ -180,6 +182,21 @@ public class GameManager : MonoBehaviour
         {
             uiManager.ShowPanel(confirmPanel);
         }
+    }
+
+    public void ConfirmExitToHome()
+    {
+        Time.timeScale = 1f;
+
+        ResetCurrentSession();
+        ResetPersistentSessionData();
+
+        AudioManager.Instance?.PlayButtonClose();
+        LoadingContext.PrepareLoad("Home", false);
+        LoadingContext.firebaseDone = true;
+
+        if (uiManager != null)
+            uiManager.LoadScene("Loading");
     }
 
     public void PauseGame()
@@ -200,6 +217,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    private void HandleLevelMusic()
+    {
+        if (currentLevel >= 11 && previousLevel < 11)
+        {
+            AudioManager.Instance?.PlayLevel11BGM();
+        }
+        else if (currentLevel < 11 && previousLevel >= 11)
+        {
+            AudioManager.Instance?.StopLevel11BGM();
+        }
+
+        previousLevel = currentLevel;
+    }
+
     public void SelectAnswer(int answerIndex)
     {
         if (!canAnswer) return;
@@ -218,7 +249,11 @@ public class GameManager : MonoBehaviour
 
         if (isCorrect)
         {
+            AudioManager.Instance?.PlayAnswerCorrect();
             resultObjects[answerIndex][0].SetActive(true);
+
+            currentCorrectStreak++;
+            UpdateScoreMultiplier();
 
             int gainedScore = CalculateScore(currentTimer, currentLevel);
             currentScore += gainedScore;
@@ -238,8 +273,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance?.PlayAnswerWrong();
             resultObjects[answerIndex][1].SetActive(true);
             resultObjects[correctIndex][0].SetActive(true);
+
+            currentCorrectStreak = 0;
+            UpdateScoreMultiplier();
 
             currentHealth -= 1;
             currentHealth = Mathf.Max(0, currentHealth);
@@ -250,6 +289,7 @@ public class GameManager : MonoBehaviour
         SaveQuestionResult(chosenValue, isCorrect, false, timeUsed);
 
         currentLevel = aiManager.currentLevel;
+        HandleLevelMusic();
         UpdateHUD();
 
         if (currentHealth <= 0)
@@ -271,6 +311,9 @@ public class GameManager : MonoBehaviour
         ResetResultIcons();
         resultObjects[correctIndex][0].SetActive(true);
 
+        currentCorrectStreak = 0;
+        UpdateScoreMultiplier();
+
         currentHealth -= 1;
         currentHealth = Mathf.Max(0, currentHealth);
 
@@ -282,6 +325,7 @@ public class GameManager : MonoBehaviour
         SaveQuestionResult(-1, false, true, timeUsed);
 
         currentLevel = aiManager.currentLevel;
+        HandleLevelMusic();
         UpdateHUD();
 
         if (currentHealth <= 0)
@@ -305,8 +349,8 @@ public class GameManager : MonoBehaviour
         questionActive = false;
         Time.timeScale = 0f;
 
-        if (uiManager != null)
-            uiManager.ShowPanel(gameOverPanel);
+        AudioManager.Instance?.PlayGameOver();
+        uiManager.ShowPanel(gameOverPanel);
 
         // Siapkan data session
         GameSessionData sessionData = new GameSessionData
@@ -330,15 +374,30 @@ public class GameManager : MonoBehaviour
             aiManager.performanceIndex,
             questionHistory
         );
+        
 
         // Beritahu LoadingContext bahwa kita perlu tunggu Firebase
         LoadingContext.PrepareLoad("Home", true);
 
         // Simpan ke Firebase (async, akan panggil NotifyFirebaseDone() setelah selesai)
-        if (firebaseManager != null)
-            firebaseManager.SaveGameSession(sessionData);
+        FirebaseManager fm = FirebaseManager.Instance;
+        Debug.Log($"[GameOver] PlayerName: {PlayerManager.GetPlayerName()}");
+        Debug.Log($"[GameOver] Question count: {questionHistory.Count}");
+        Debug.Log($"[GameOver] firebaseManager field null? {fm == null}");
+        Debug.Log($"[GameOver] FirebaseManager.Instance null? {FirebaseManager.Instance == null}");
+        if (fm != null)
+        {
+            Debug.Log("[GameManager] SaveGameSession dipanggil.");
+            fm.SaveGameSession(sessionData);
+        }
+        else
+        {
+            Debug.LogError("[GameManager] FirebaseManager NULL. SaveGameSession tidak dijalankan.");
+            LoadingContext.NotifyFirebaseDone(); // supaya loading tidak ngestuck
+        }
 
         // Tampilkan game over panel sebentar
+        Debug.Log("kekrim");
         yield return new WaitForSecondsRealtime(2f);
 
         Time.timeScale = 1f;
@@ -420,7 +479,7 @@ public class GameManager : MonoBehaviour
         health.text = currentHealth.ToString();
         timer.text = currentTimer.ToString("F1");
 
-        bool isLevel11 = (currentLevel == 11);
+        bool isLevel11 = currentLevel == 11;
 
         if (isLevel11)
         {
@@ -470,17 +529,66 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void ResetCurrentSession()
+    {
+        questionHistory.Clear();
+
+        currentScore = 0;
+        currentLevel = 1;
+        currentHealth = 5;
+
+        currentTimer = 0f;
+        totalTimerForQuestion = 0f;
+        questionActive = false;
+        canAnswer = false;
+
+        totalQuestionCount = 0;
+        totalCorrectAnswer = 0;
+        correctAnswer = 0;
+        correctIndex = 0;
+
+        currentOperand1 = 0;
+        currentOperand2 = 0;
+        currentOperatorSymbol = "";
+
+        currentAnswerA = 0;
+        currentAnswerB = 0;
+        currentAnswerC = 0;
+        currentAnswerD = 0;
+
+        level10QuestionCount = 0;
+        level11QuestionCount = 0;
+        isGamePaused = false;
+        isSessionFinished = false;
+
+        ResetResultIcons();
+    }
+
+    private void ResetPersistentSessionData()
+    {
+        PlayerManager.SetPlayerName("");
+        SessionResultData.Clear();
+
+        LoadingContext.targetScene = "";
+        LoadingContext.waitForFirebase = false;
+        LoadingContext.firebaseDone = false;
+
+        LeaderboardContext.cachedEntries.Clear();
+    }
+
+    private void UpdateScoreMultiplier()
+    {
+        currentScoreMultiplier = 1f + ((currentCorrectStreak / 5) * 0.1f);
+    }
+
     int CalculateScore(float remainingTime, int levelValue)
     {
-        // Base score dari level: makin tinggi level, makin besar base
         int baseScore = levelValue * 100;
-
-        // Speed bonus: proporsional, tidak pakai Random
-        // semakin cepat menjawab, semakin besar bonus
-        float timeRatio = remainingTime / GetTimerByLevel(levelValue); // 0.0 - 1.0
+        float timeRatio = remainingTime / GetTimerByLevel(levelValue);
         int speedBonus = Mathf.RoundToInt(timeRatio * levelValue * 50);
 
-        return baseScore + speedBonus;
+        int total = baseScore + speedBonus;
+        return Mathf.RoundToInt(total * currentScoreMultiplier);
     }
 
     float GetTimerByLevel(int levelValue)
@@ -785,15 +893,15 @@ public class GameManager : MonoBehaviour
         switch (levelValue)
         {
             case 1:
-            case 2:
                 dividendMin = dividendMax = 0;
                 divisorMin = divisorMax = 0;
                 break;
+            case 2:
             case 3:
-            case 4:
                 dividendMin = 1; dividendMax = 1;
                 divisorMin = 1; divisorMax = 1; // 1d / 1d
                 break;
+            case 4:
             case 5:
                 dividendMin = 1; dividendMax = 2;
                 divisorMin = 1; divisorMax = 1; // 1d / 1d

@@ -4,7 +4,18 @@ using System.Collections.Generic;
 
 public class HomeManager: MonoBehaviour
 {
-    [SerializeField] private FirebaseManager firebaseManager;
+    [SerializeField] 
+    private FirebaseManager firebaseManager;
+    [SerializeField] 
+    private UIManager uiManager;
+
+    void Awake()
+    {
+        AudioManager.Instance?.PlayMainBGM();
+    }
+    void Start()
+    {
+    }
 
     public void GoToLeaderboard()
     {
@@ -16,7 +27,7 @@ public class HomeManager: MonoBehaviour
             Debug.LogError("[HomeManager] FirebaseManager not found.");
             // fallback: langsung ke leaderboard tanpa data (atau pakai data lama)
             LoadingContext.PrepareLoad("Ranking", false);
-            SceneManager.LoadScene("Loading");
+            uiManager.LoadScene("Loading");
             return;
         }
 
@@ -35,6 +46,6 @@ public class HomeManager: MonoBehaviour
         });
 
         // 3) Pindah ke scene Loading
-        SceneManager.LoadScene("Loading");
+        uiManager.LoadScene("Loading");
     }
 }

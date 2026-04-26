@@ -6,6 +6,9 @@ TagManager:
   tags:
   - InteractiveButton
   - Icon
+  - ButtonClick
+  - ButtonClose
+  - ModalOpen
   layers:
   - Default
   - TransparentFX

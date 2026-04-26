@@ -33,6 +33,7 @@ public class FirebaseManager : MonoBehaviour
 
     private IEnumerator SaveGameSessionRoutine(GameSessionData data)
     {
+        Debug.Log($"[FirebaseManager] SaveGameSessionRoutine start. Questions: {data.questions?.Count ?? 0}");
         float timeoutSeconds = 10f;
         float timer = 0f;
 
@@ -74,6 +75,7 @@ public class FirebaseManager : MonoBehaviour
         }
 
         // Reset timer untuk loop pertanyaan
+        LoadingContext.NotifyFirebaseDone();
         timer = 0f;
 
         foreach (QuestionResult q in data.questions)
