@@ -306,27 +306,22 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         if (uiManager != null)
-        {
             uiManager.ShowPanel(gameOverPanel);
-        }
 
+        // Siapkan data session
         GameSessionData sessionData = new GameSessionData
         {
-            playerName = PlayerManager.playerName,
-            pi = aiManager.performanceIndex,
-            finalScore = currentScore,
-            finalLevel = currentLevel,
+            playerName    = PlayerManager.GetPlayerName(),
+            pi            = aiManager.performanceIndex,
+            finalScore    = currentScore,
+            finalLevel    = currentLevel,
             totalQuestion = totalQuestionCount,
-            totalCorrect = totalCorrectAnswer,
-            playedAt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-            questions = new List<QuestionResult>(questionHistory)
+            totalCorrect  = totalCorrectAnswer,
+            playedAt      = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            questions     = new List<QuestionResult>(questionHistory)
         };
 
-        if (firebaseManager != null)
-        {
-            firebaseManager.SaveGameSession(sessionData);
-        }
-
+        // Simpan untuk Result panel di Home
         SessionResultData.SetResult(
             currentScore,
             currentLevel,
@@ -336,14 +331,21 @@ public class GameManager : MonoBehaviour
             questionHistory
         );
 
-        yield return new WaitForSecondsRealtime(3f);
+        // Beritahu LoadingContext bahwa kita perlu tunggu Firebase
+        LoadingContext.PrepareLoad("Home", true);
+
+        // Simpan ke Firebase (async, akan panggil NotifyFirebaseDone() setelah selesai)
+        if (firebaseManager != null)
+            firebaseManager.SaveGameSession(sessionData);
+
+        // Tampilkan game over panel sebentar
+        yield return new WaitForSecondsRealtime(2f);
 
         Time.timeScale = 1f;
 
+        // Pindah ke Loading Scene
         if (uiManager != null)
-        {
-            uiManager.LoadScene(homeSceneName);
-        }
+            uiManager.LoadScene("Loading");
     }
 
     void GenerateNewQuestion()

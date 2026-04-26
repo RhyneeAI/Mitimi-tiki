@@ -1,60 +1,124 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
     public GameObject[] subPanels;
-    public GameObject backButton;   
-    public GameObject nextIcon;     
+    public GameObject backButton;
+    public GameObject nextIcon;
+
+    [Header("Manager")]
+    public UIManager uiManager;
 
     private int currentIndex = 0;
+    private bool isTransitioning = false;
 
     void Start()
     {
-        ShowPanel(currentIndex);
+        ShowPanelInstant(currentIndex);
     }
 
     public void ShowPanel(int index)
     {
-        // Matikan semua sub-panel
-        for (int i = 0; i < subPanels.Length; i++)
-            subPanels[i].SetActive(false);
+        if (isTransitioning) return;
+        if (index < 0 || index >= subPanels.Length) return;
+        if (index == currentIndex) return;
 
-        // Aktifkan panel sesuai index
-        if (index >= 0 && index < subPanels.Length)
-        {
-            subPanels[index].SetActive(true);
-            currentIndex = index;
-        }
+        bool moveNext = index > currentIndex;
+        StartCoroutinePanelSwitch(currentIndex, index, moveNext);
+    }
 
-        UpdateButtons();
+    public void ClosePanel()
+    {
+        if (uiManager != null)
+            uiManager.HidePanel(gameObject);
     }
 
     public void NextPanel()
     {
+        if (isTransitioning) return;
+
         int nextIndex = currentIndex + 1;
-        Debug.Log("Next Index :" + nextIndex);
         if (nextIndex < subPanels.Length)
-        {
             ShowPanel(nextIndex);
-        }
     }
 
     public void PreviousPanel()
     {
+        if (isTransitioning) return;
+
         int prevIndex = currentIndex - 1;
         if (prevIndex >= 0)
-        {
             ShowPanel(prevIndex);
+    }
+
+    private void ShowPanelInstant(int index)
+    {
+        for (int i = 0; i < subPanels.Length; i++)
+            subPanels[i].SetActive(i == index);
+
+        currentIndex = index;
+        UpdateButtons();
+    }
+
+    private void StartCoroutinePanelSwitch(int fromIndex, int toIndex, bool moveNext)
+    {
+        StartCoroutine(SwitchPanelRoutine(fromIndex, toIndex, moveNext));
+    }
+
+    private System.Collections.IEnumerator SwitchPanelRoutine(int fromIndex, int toIndex, bool moveNext)
+    {
+        isTransitioning = true;
+
+        GameObject fromPanel = subPanels[fromIndex];
+        GameObject toPanel = subPanels[toIndex];
+
+        PanelTransition fromTransition = fromPanel.GetComponent<PanelTransition>();
+        PanelTransition toTransition = toPanel.GetComponent<PanelTransition>();
+        if (toTransition != null)
+        {
+            toTransition.ResetToHome();
         }
+
+        if (toPanel != null)
+            toPanel.SetActive(true);
+
+        if (moveNext)
+        {
+            if (fromTransition != null) fromTransition.SlideOutToLeft(true);
+            else fromPanel.SetActive(false);
+
+            if (toTransition != null) toTransition.SlideInFromRight();
+        }
+        else
+        {
+            if (fromTransition != null) fromTransition.SlideOutToRight(true);
+            else fromPanel.SetActive(false);
+
+            if (toTransition != null) toTransition.SlideInFromLeft();
+        }
+
+        float wait = 0.25f;
+        if (toTransition != null) wait = toTransition.duration;
+        else if (fromTransition != null) wait = fromTransition.duration;
+
+        isTransitioning = true;
+        yield return new WaitForSecondsRealtime(wait);
+        isTransitioning = false;
+
+        if (fromPanel != null)
+            fromPanel.SetActive(false);
+
+        currentIndex = toIndex;
+        UpdateButtons();
+        isTransitioning = false;
     }
 
     private void UpdateButtons()
     {
-        // Jika di panel pertama → hide backButton
         if (backButton != null)
             backButton.SetActive(currentIndex > 0);
 
-        // Jika di panel terakhir → hide nextIcon
         if (nextIcon != null)
             nextIcon.SetActive(currentIndex < subPanels.Length - 1);
     }

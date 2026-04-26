@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: cf5db3a131200c4488714d46022cacdc
+guid: 84d6f15394e2f0540aec23a02e085fcf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5205995691265442433
-    second: 18C72DAF-3252-4928-BEF8-C9E5E24DCE82_0
+      213: -7682768027033976039
+    second: Leaderboard_0
+  - first:
+      213: 3945673187167774463
+    second: Leaderboard_1
+  - first:
+      213: 5907392321037192411
+    second: Leaderboard_2
+  - first:
+      213: 6910857004349638361
+    second: Leaderboard_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 18C72DAF-3252-4928-BEF8-C9E5E24DCE82_0
+      name: Leaderboard_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2160
-        height: 3840
+        x: 31
+        y: 54
+        width: 42
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1824718af796f3840800000000000000
-      internalID: 5205995691265442433
+      spriteID: 91349e83f23516590800000000000000
+      internalID: -7682768027033976039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Leaderboard_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff62be0dbd8d1c630800000000000000
+      internalID: 3945673187167774463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Leaderboard_2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 36
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdcca4c64064bf150800000000000000
+      internalID: 5907392321037192411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Leaderboard_3
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 0
+        width: 35
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d6c7c584db48ef50800000000000000
+      internalID: 6910857004349638361
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      18C72DAF-3252-4928-BEF8-C9E5E24DCE82_0: 5205995691265442433
+      Leaderboard_0: -7682768027033976039
+      Leaderboard_1: 3945673187167774463
+      Leaderboard_2: 5907392321037192411
+      Leaderboard_3: 6910857004349638361
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

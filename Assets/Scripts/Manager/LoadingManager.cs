@@ -25,7 +25,7 @@ public class LoadingManager : MonoBehaviour
     void Start()
     {
         ShowRandomTip();
-        StartCoroutine(LoadSceneAsync("Game"));
+        StartCoroutine(LoadSceneAsync(LoadingContext.targetScene)); // ← baca dari context
     }
 
     void Update()
@@ -46,9 +46,7 @@ public class LoadingManager : MonoBehaviour
         if (tips.Length > 1)
         {
             while (randomIndex == currentTipIndex)
-            {
                 randomIndex = Random.Range(0, tips.Length);
-            }
         }
 
         currentTipIndex = randomIndex;
@@ -58,7 +56,7 @@ public class LoadingManager : MonoBehaviour
     IEnumerator LoadSceneAsync(string sceneName)
     {
         float loadTimer = 0f;
-        float tipTimer = 0f;
+        float tipTimer  = 0f;
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
@@ -66,19 +64,17 @@ public class LoadingManager : MonoBehaviour
         while (!asyncLoad.isDone)
         {
             loadTimer += Time.deltaTime;
-            tipTimer += Time.deltaTime;
+            tipTimer  += Time.deltaTime;
 
-            float realProgress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-            float fakeProgress = Mathf.Clamp01(loadTimer / minimumLoadingTime);
+            float realProgress    = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            float fakeProgress    = Mathf.Clamp01(loadTimer / minimumLoadingTime);
             float displayProgress = Mathf.Min(realProgress, fakeProgress);
 
             int frameIndex = Mathf.FloorToInt(displayProgress * loadingFrames.Length);
             frameIndex = Mathf.Clamp(frameIndex, 0, loadingFrames.Length - 1);
 
             if (loadingBarImage != null && loadingFrames.Length > 0)
-            {
                 loadingBarImage.sprite = loadingFrames[frameIndex];
-            }
 
             if (tipTimer >= tipChangeInterval)
             {
@@ -86,7 +82,13 @@ public class LoadingManager : MonoBehaviour
                 tipTimer = 0f;
             }
 
-            if (asyncLoad.progress >= 0.9f && loadTimer >= minimumLoadingTime)
+            bool sceneReady    = asyncLoad.progress >= 0.9f;
+            bool timeReady     = loadTimer >= minimumLoadingTime;
+
+            // ← Satu-satunya tambahan: cek Firebase hanya kalau memang diperlukan
+            bool firebaseReady = !LoadingContext.waitForFirebase || LoadingContext.firebaseDone;
+
+            if (sceneReady && timeReady && firebaseReady)
             {
                 asyncLoad.allowSceneActivation = true;
             }

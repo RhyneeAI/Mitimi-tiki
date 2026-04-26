@@ -13,16 +13,36 @@ public class UIManager : MonoBehaviour
     {
         if (panel == null) return;
 
+        panel.SetActive(true);
+
+        PanelTransition transition = panel.GetComponent<PanelTransition>();
+        if (transition != null)
+        {
+            transition.duration = popupDuration;
+            transition.popupStartScale = popupStartScale;
+            transition.popupEndScale = popupEndScale;
+            transition.PopupIn();
+            return;
+        }
+
         StopAllCoroutines();
         StartCoroutine(PopupRoutine(panel));
     }
 
     public void HidePanel(GameObject panel)
     {
-        if (panel != null)
+        Debug.Log("test");
+        if (panel == null) return;
+
+        PanelTransition transition = panel.GetComponent<PanelTransition>();
+        if (transition != null)
         {
-            panel.SetActive(false);
+            transition.duration = popupDuration;
+            transition.PopupOut(true);
+            return;
         }
+
+        panel.SetActive(false);
     }
 
     IEnumerator PopupRoutine(GameObject panel)
