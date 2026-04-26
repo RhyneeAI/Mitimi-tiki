@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private List<QuestionResult> questionHistory = new List<QuestionResult>();
+
     [Header("UI")]
+    public PlayerNameInput playerNameInput; 
     public TMP_Text question;
     public TMP_Text score;
     public TMP_Text[] level;
@@ -27,11 +30,13 @@ public class GameManager : MonoBehaviour
     [Header("Manager")]
     public AIManager aiManager;
     public UIManager uiManager;
+    public FirebaseManager firebaseManager;
 
     [Header("Panel")]
     public string homeSceneName = "Home";
     public GameObject confirmPanel;
     public GameObject gameOverPanel;
+    public GameObject startGamePanel;
 
     [Header("Game State")]
     public int currentScore = 0;
@@ -50,6 +55,11 @@ public class GameManager : MonoBehaviour
     private int currentOperand1;
     private int currentOperand2;
     private string currentOperatorSymbol;
+
+    private int currentAnswerA;
+    private int currentAnswerB;
+    private int currentAnswerC;
+    private int currentAnswerD;
 
     [Header("Game State for Limitations")]
     private int level10QuestionCount = 0;
@@ -75,16 +85,41 @@ public class GameManager : MonoBehaviour
         return currentHealth <= 0;
     }
 
+    private void SaveQuestionResult(int playerAnswer, bool isCorrect, bool isTimeout, float timeUsed)
+    {
+        QuestionResult qr = new QuestionResult
+        {
+            questionNumber = totalQuestionCount,
+            question = currentOperand1 + " " + currentOperatorSymbol + " " + currentOperand2,
+
+            answerA = currentAnswerA,
+            answerB = currentAnswerB,
+            answerC = currentAnswerC,
+            answerD = currentAnswerD,
+
+            correctAnswer = correctAnswer,
+            playerAnswer = playerAnswer,
+
+            pi = aiManager.performanceIndex,
+            score = currentScore,
+            level = currentLevel,
+            life = currentHealth,
+
+            time = totalTimerForQuestion,
+            timeUsed = timeUsed,
+
+            isCorrect = isCorrect,
+            isTimeout = isTimeout,
+
+            created = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        };
+
+        questionHistory.Add(qr);
+    }
+
     void Start()
     {
-        answerTexts = new List<TMP_Text> { answerA, answerB, answerC, answerD };
-        resultObjects = new List<GameObject[]> { resultA, resultB, resultC, resultD };
-
-        aiManager.ResetAI();
-        currentLevel = aiManager.currentLevel;
-
-        UpdateHUD();
-        GenerateNewQuestion();
+        
     }
 
     void Update()
@@ -115,6 +150,26 @@ public class GameManager : MonoBehaviour
         {
             HandleTimeout();
         }
+    }
+
+    public void OnClickStartGame()
+    {
+        if (!playerNameInput.TrySubmit())
+            return; // validasi gagal, pesan sudah tampil di InformationMessage
+
+        uiManager.HidePanel(startGamePanel);
+
+        // Nama valid, lanjut mulai game
+        answerTexts = new List<TMP_Text> { answerA, answerB, answerC, answerD };
+        resultObjects = new List<GameObject[]> { resultA, resultB, resultC, resultD };
+
+        aiManager.ResetAI();
+        currentLevel = aiManager.currentLevel;
+
+        UpdateHUD();
+        GenerateNewQuestion();
+
+        Debug.Log("Playername : " + PlayerManager.GetPlayerName());
     }
 
     public void OnClickHome()
@@ -192,6 +247,8 @@ public class GameManager : MonoBehaviour
             aiManager.RegisterResult(false, false, timeUsed, totalTimerForQuestion);
         }
 
+        SaveQuestionResult(chosenValue, isCorrect, false, timeUsed);
+
         currentLevel = aiManager.currentLevel;
         UpdateHUD();
 
@@ -222,6 +279,8 @@ public class GameManager : MonoBehaviour
         aiManager.RegisterResult(false, true, timeUsed, totalTimerForQuestion);
         aiManager.ApplyTimeoutPenalty(currentLevel);
 
+        SaveQuestionResult(-1, false, true, timeUsed);
+
         currentLevel = aiManager.currentLevel;
         UpdateHUD();
 
@@ -251,7 +310,31 @@ public class GameManager : MonoBehaviour
             uiManager.ShowPanel(gameOverPanel);
         }
 
-        SessionResultData.SetResult(currentScore, currentLevel, totalQuestionCount, totalCorrectAnswer);
+        GameSessionData sessionData = new GameSessionData
+        {
+            playerName = PlayerManager.playerName,
+            pi = aiManager.performanceIndex,
+            finalScore = currentScore,
+            finalLevel = currentLevel,
+            totalQuestion = totalQuestionCount,
+            totalCorrect = totalCorrectAnswer,
+            playedAt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            questions = new List<QuestionResult>(questionHistory)
+        };
+
+        if (firebaseManager != null)
+        {
+            firebaseManager.SaveGameSession(sessionData);
+        }
+
+        SessionResultData.SetResult(
+            currentScore,
+            currentLevel,
+            totalQuestionCount,
+            totalCorrectAnswer,
+            aiManager.performanceIndex,
+            questionHistory
+        );
 
         yield return new WaitForSecondsRealtime(3f);
 
@@ -318,6 +401,11 @@ public class GameManager : MonoBehaviour
         canAnswer = true;
         totalQuestionCount += 1;
 
+        currentAnswerA = choices[0];
+        currentAnswerB = choices[1];
+        currentAnswerC = choices[2];
+        currentAnswerD = choices[3];
+
         UpdateHUD();
     }
 
@@ -382,9 +470,15 @@ public class GameManager : MonoBehaviour
 
     int CalculateScore(float remainingTime, int levelValue)
     {
-        int speedScore = Mathf.CeilToInt(remainingTime) + Random.Range(1, levelValue * 4);
-        int levelMultiplier = levelValue * 20;
-        return speedScore * levelMultiplier;
+        // Base score dari level: makin tinggi level, makin besar base
+        int baseScore = levelValue * 100;
+
+        // Speed bonus: proporsional, tidak pakai Random
+        // semakin cepat menjawab, semakin besar bonus
+        float timeRatio = remainingTime / GetTimerByLevel(levelValue); // 0.0 - 1.0
+        int speedBonus = Mathf.RoundToInt(timeRatio * levelValue * 50);
+
+        return baseScore + speedBonus;
     }
 
     float GetTimerByLevel(int levelValue)

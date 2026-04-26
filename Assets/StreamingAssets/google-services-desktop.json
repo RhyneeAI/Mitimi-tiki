@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "7574396032",
+    "project_id": "mitimiti-tiki",
+    "storage_bucket": "mitimiti-tiki.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7574396032:android:28bca1c0715e91a8e5da65",
+        "android_client_info": {
+          "package_name": "com.trident.mitimitiki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMd4xgE0LdK-uGmPfp3JAz4migsFmuBuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

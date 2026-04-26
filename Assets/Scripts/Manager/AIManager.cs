@@ -18,57 +18,67 @@ public class AIManager : MonoBehaviour
 
     [Header("Tuning")]
     public int evaluationWindow = 3;
-    public float correctBaseGain = 0.015f;
-    public float correctSpeedBonus = 0.025f;
-    public float wrongPenalty = 0.045f;
-    public float timeoutPenalty = 0.055f;
+    public float correctBaseGain   = 0.012f;
+    public float correctSpeedBonus = 0.022f;
+    public float wrongPenalty      = 0.055f;
+    public float timeoutPenalty    = 0.065f;
+    public float piCap             = 0.97f;
 
     private Queue<int> recentTargetLevels = new Queue<int>();
 
-    public bool IsLevel11Locked => isLevel11Locked;
-    public int Level11QuestionsPlayed => level11QuestionsPlayed;
-    public int Level11LockQuestions => level11LockQuestions;
+    public bool IsLevel11Locked       => isLevel11Locked;
+    public int  Level11QuestionsPlayed => level11QuestionsPlayed;
+    public int  Level11LockQuestions   => level11LockQuestions;
 
+    // ─────────────────────────────────────────────
+    // RESET
+    // ─────────────────────────────────────────────
     public void ResetAI()
     {
         performanceIndex = 0.11f;
-        currentLevel = 1;
-        targetLevel = 1;
+        currentLevel     = 1;
+        targetLevel      = 1;
+        level11QuestionsPlayed = 0;
+        isLevel11Locked  = false;
         recentTargetLevels.Clear();
     }
 
+    // ─────────────────────────────────────────────
+    // REGISTER HASIL SOAL
+    // ─────────────────────────────────────────────
     public void RegisterResult(bool isCorrect, bool isTimeout, float timeUsed, float totalTime)
     {
-        float safeTotalTime = Mathf.Max(0.1f, totalTime);
+        float safeTotalTime   = Mathf.Max(0.1f, totalTime);
         float clampedTimeUsed = Mathf.Clamp(timeUsed, 0f, safeTotalTime);
-        float speedRatio = Mathf.Clamp01(1f - (clampedTimeUsed / safeTotalTime));
+        float speedRatio      = Mathf.Clamp01(1f - (clampedTimeUsed / safeTotalTime));
 
         if (isCorrect)
         {
             float gain = correctBaseGain + (speedRatio * correctSpeedBonus);
-            performanceIndex = Mathf.Clamp01(performanceIndex + gain);
+            // Pakai piCap agar PI tidak melewati batas maksimum
+            performanceIndex = Mathf.Clamp(performanceIndex + gain, 0f, piCap);
         }
         else
         {
             if (!isTimeout)
             {
+                // Penalti jawaban salah
                 performanceIndex = Mathf.Clamp01(performanceIndex - wrongPenalty);
             }
-            // timeout penalty di-handle di ApplyTimeoutPenalty(level)
+            // Penalti timeout di-handle di ApplyTimeoutPenalty()
         }
 
         targetLevel = GetLevelFromPerformanceIndex(performanceIndex);
         PushTargetLevel(targetLevel);
 
-        // Hitung berapa soal yang sudah dimainkan di level 11
+        // Hitung soal di level 11
         if (currentLevel == 11)
         {
             level11QuestionsPlayed++;
 
-            // aktifkan lock jika baru saja masuk level 11
             if (!isLevel11Locked)
             {
-                isLevel11Locked = true;
+                isLevel11Locked        = true;
                 level11QuestionsPlayed = 1; // soal pertama di level 11
             }
         }
@@ -76,18 +86,28 @@ public class AIManager : MonoBehaviour
         UpdateDisplayedLevel();
     }
 
+    // ─────────────────────────────────────────────
+    // PENALTI WAKTU (jawab benar tapi terlalu lambat)
+    // ─────────────────────────────────────────────
     public void ApplyTimePenalty(float penaltyPercent)
     {
-        // penaltyPercent = 0.05, 0.10, atau 0.15
-        // mengurangi sebesar X% dari perolehan correctBaseGain + maxSpeedBonus saat itu
-        float baseGain = correctBaseGain + correctSpeedBonus;
-        float reduction = baseGain * penaltyPercent;
-        performanceIndex = Mathf.Clamp01(performanceIndex - reduction);
+        // penaltyPercent: 0.05 atau 0.10
+        // Penalty = correctBaseGain * (penaltyPercent * 10)
+        // Contoh: 0.10 → 0.012 * 1.0 = 0.012 (menghapus hampir seluruh base gain)
+        float penalty = correctBaseGain * (penaltyPercent * 10f);
+        performanceIndex = Mathf.Clamp01(performanceIndex - penalty);
     }
 
+    // ─────────────────────────────────────────────
+    // PENALTI TIMEOUT (waktu habis)
+    // ─────────────────────────────────────────────
     public void ApplyTimeoutPenalty(int level)
     {
-        float penalty = 0.02f * level;
+        // Semakin tinggi level, semakin besar penalti
+        // Level 1  → 0.065 * 1.05 = 0.068
+        // Level 5  → 0.065 * 1.25 = 0.081
+        // Level 11 → 0.065 * 1.55 = 0.101
+        float penalty = timeoutPenalty * (1f + (level * 0.05f));
         performanceIndex = Mathf.Clamp01(performanceIndex - penalty);
 
         targetLevel = GetLevelFromPerformanceIndex(performanceIndex);
@@ -95,6 +115,9 @@ public class AIManager : MonoBehaviour
         UpdateDisplayedLevel();
     }
 
+    // ─────────────────────────────────────────────
+    // LEVEL DARI PI
+    // ─────────────────────────────────────────────
     int GetLevelFromPerformanceIndex(float pi)
     {
         if (pi < 0.16f) return 1;
@@ -106,20 +129,24 @@ public class AIManager : MonoBehaviour
         if (pi < 0.58f) return 7;
         if (pi < 0.66f) return 8;
         if (pi < 0.76f) return 9;
-        if (pi < 0.835f) return 10;
+        if (pi < 0.83f) return 10;
         return 11;
     }
 
+    // ─────────────────────────────────────────────
+    // QUEUE TARGET LEVEL (untuk smoothing)
+    // ─────────────────────────────────────────────
     void PushTargetLevel(int level)
     {
         recentTargetLevels.Enqueue(level);
 
         while (recentTargetLevels.Count > evaluationWindow)
-        {
             recentTargetLevels.Dequeue();
-        }
     }
 
+    // ─────────────────────────────────────────────
+    // UPDATE LEVEL YANG DITAMPILKAN (gradual)
+    // ─────────────────────────────────────────────
     private void UpdateDisplayedLevel()
     {
         if (recentTargetLevels.Count < evaluationWindow)
@@ -127,7 +154,7 @@ public class AIManager : MonoBehaviour
 
         int minLevel = int.MaxValue;
         int maxLevel = int.MinValue;
-        int sum = 0;
+        int sum      = 0;
 
         foreach (int lvl in recentTargetLevels)
         {
@@ -137,23 +164,19 @@ public class AIManager : MonoBehaviour
         }
 
         int averageLevel = Mathf.RoundToInt(sum / (float)recentTargetLevels.Count);
-
-        // Aturan naik/turun normal
-        int newLevel = currentLevel;
+        int newLevel     = currentLevel;
 
         if (minLevel == maxLevel)
         {
-            if (averageLevel > currentLevel)
-                newLevel += 1;
-            else if (averageLevel < currentLevel)
-                newLevel -= 1;
+            // Semua target di queue sama → naikkan/turunkan 1 langkah
+            if (averageLevel > currentLevel)       newLevel += 1;
+            else if (averageLevel < currentLevel)  newLevel -= 1;
         }
         else
         {
-            if (averageLevel >= currentLevel + 2)
-                newLevel += 1;
-            else if (averageLevel <= currentLevel - 2)
-                newLevel -= 1;
+            // Ada variasi → butuh selisih 2 sebelum berubah
+            if (averageLevel >= currentLevel + 2)      newLevel += 1;
+            else if (averageLevel <= currentLevel - 2) newLevel -= 1;
         }
 
         newLevel = Mathf.Clamp(newLevel, 1, 11);
@@ -163,13 +186,12 @@ public class AIManager : MonoBehaviour
         {
             if (isLevel11Locked && level11QuestionsPlayed < level11LockQuestions)
             {
-                // Selama lock aktif dan jumlah soal belum mencapai limit,
-                // paksa tetap level 11, abaikan penurunan.
+                // Paksa tetap level 11 selama lock aktif
                 newLevel = 11;
             }
             else
             {
-                // Setelah lewat 5 soal, boleh turun lagi
+                // Lewati batas soal → boleh turun
                 isLevel11Locked = false;
             }
         }
@@ -177,6 +199,9 @@ public class AIManager : MonoBehaviour
         currentLevel = newLevel;
     }
 
+    // ─────────────────────────────────────────────
+    // HELPER
+    // ─────────────────────────────────────────────
     public float GetSpeedRatio(float timeUsed, float totalTime)
     {
         float safeTotalTime = Mathf.Max(0.1f, totalTime);
