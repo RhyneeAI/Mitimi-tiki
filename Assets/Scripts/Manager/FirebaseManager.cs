@@ -37,7 +37,7 @@ public class FirebaseManager : MonoBehaviour
         float timeoutSeconds = 10f;
         float timer = 0f;
 
-        DocumentReference sessionRef = db.Collection("sessions").Document();
+        DocumentReference sessionRef = db.Collection("plays").Document();
 
         Dictionary<string, object> sessionDoc = new Dictionary<string, object>
         {
@@ -138,7 +138,7 @@ public class FirebaseManager : MonoBehaviour
             return;
         }
         
-        db.Collection("sessions")
+        db.Collection("plays")
           .OrderByDescending("pi")
           .OrderByDescending("playedAt")
           .Limit(50)

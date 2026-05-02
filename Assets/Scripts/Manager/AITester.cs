@@ -1,8 +1,21 @@
 using System.Collections;
 using UnityEngine;
 
+public enum AIPresetType
+{
+    EasySlow,
+    EasyFast,
+    NormalBalanced,
+    HardAccurate,
+    HardSlow
+}
+
 public class AITester : MonoBehaviour
 {
+    [Header("Preset")]
+    public AIPresetType presetType = AIPresetType.NormalBalanced;
+    public bool applyPresetOnStart = true;
+
     [Header("References")]
     public GameManager gameManager;
     public AIManager aiManager;
@@ -37,15 +50,82 @@ public class AITester : MonoBehaviour
 
     void Start()
     {
+        if (applyPresetOnStart)
+            ApplyPreset(presetType);
+
         if (autoRunOnStart)
-        {
             StartCoroutine(RunSimulationPlay());
-        }
     }
 
     public void StartTest()
     {
         StartCoroutine(RunSimulationPlay());
+    }
+
+    public void ApplyPreset(AIPresetType type)
+    {
+        switch (type)
+        {
+            case AIPresetType.EasySlow:
+                // Tingkat rendah: akurat, tapi lambat
+                lowLevelAccuracy      = 0.95f;
+                highLevelAccuracy     = 0.80f;
+                highLevelThreshold    = 8;
+
+                lowLevelMinTimeRatio  = 0.6f;
+                lowLevelMaxTimeRatio  = 0.9f;
+                highLevelMinTimeRatio = 0.7f;
+                highLevelMaxTimeRatio = 1.0f;
+                break;
+
+            case AIPresetType.EasyFast:
+                // Mudah: akurasi lumayan, jawab cukup cepat
+                lowLevelAccuracy      = 0.90f;
+                highLevelAccuracy     = 0.75f;
+                highLevelThreshold    = 8;
+
+                lowLevelMinTimeRatio  = 0.3f;
+                lowLevelMaxTimeRatio  = 0.6f;
+                highLevelMinTimeRatio = 0.4f;
+                highLevelMaxTimeRatio = 0.8f;
+                break;
+
+            case AIPresetType.NormalBalanced:
+                // Default yang kamu punya sekarang, seimbang
+                lowLevelAccuracy      = 0.85f;
+                highLevelAccuracy     = 0.70f;
+                highLevelThreshold    = 8;
+
+                lowLevelMinTimeRatio  = 0.3f;
+                lowLevelMaxTimeRatio  = 0.6f;
+                highLevelMinTimeRatio = 0.5f;
+                highLevelMaxTimeRatio = 0.9f;
+                break;
+
+            case AIPresetType.HardAccurate:
+                // Susah: akurasi tinggi bahkan di level tinggi, waktu cukup cepat
+                lowLevelAccuracy      = 0.95f;
+                highLevelAccuracy     = 0.85f;
+                highLevelThreshold    = 7;
+
+                lowLevelMinTimeRatio  = 0.2f;
+                lowLevelMaxTimeRatio  = 0.5f;
+                highLevelMinTimeRatio = 0.3f;
+                highLevelMaxTimeRatio = 0.7f;
+                break;
+
+            case AIPresetType.HardSlow:
+                // Susah: akurasi tinggi, tapi jawab lama (simulasi pemain mikir lama)
+                lowLevelAccuracy      = 0.95f;
+                highLevelAccuracy     = 0.85f;
+                highLevelThreshold    = 7;
+
+                lowLevelMinTimeRatio  = 0.6f;
+                lowLevelMaxTimeRatio  = 1.0f;
+                highLevelMinTimeRatio = 0.7f;
+                highLevelMaxTimeRatio = 1.0f;
+                break;
+        }
     }
 
     IEnumerator RunSimulationPlay()

@@ -2755,18 +2755,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 843171897}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: HidePanel
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 560477449}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1284586321}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnClickStartGame
@@ -3940,8 +3928,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3.6618042}
-  m_SizeDelta: {x: 200, y: 25}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 389, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1265175017
 MonoBehaviour:
@@ -6748,9 +6736,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1540557363}
     - target: {fileID: 4576961665383435542, guid: 0ef259cfef754264f8ab13718b482576, type: 3}
+      propertyPath: presetType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576961665383435542, guid: 0ef259cfef754264f8ab13718b482576, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1284586321}
+    - target: {fileID: 4576961665383435542, guid: 0ef259cfef754264f8ab13718b482576, type: 3}
+      propertyPath: applyPresetOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5293484747208541029, guid: 0ef259cfef754264f8ab13718b482576, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
