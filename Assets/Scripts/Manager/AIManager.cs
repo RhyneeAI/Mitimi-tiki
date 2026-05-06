@@ -124,10 +124,10 @@ public class AIManager : MonoBehaviour
         if (pi < 0.22f) return 2;
         if (pi < 0.29f) return 3;
         if (pi < 0.36f) return 4;
-        if (pi < 0.43f) return 5;
-        if (pi < 0.50f) return 6;
-        if (pi < 0.58f) return 7;
-        if (pi < 0.66f) return 8;
+        if (pi < 0.44f) return 5;
+        if (pi < 0.52f) return 6;
+        if (pi < 0.59f) return 7;
+        if (pi < 0.67f) return 8;
         if (pi < 0.76f) return 9;
         if (pi < 0.83f) return 10;
         return 11;

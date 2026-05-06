@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Firebase.Firestore;
 using UnityEngine;
+// #if !UNITY_WEBGL || UNITY_EDITOR
+// using Firebase.Firestore;
+// #endif
 
 public static class PlayerManager
 {
@@ -11,7 +13,7 @@ public static class PlayerManager
 
     private static string _playerName = "Tiki-" + Random.Range(1, 99);
 
-    private const int MaxLength = 9;
+    private const int MaxLength = 10;
 
     // Karakter yang diizinkan: huruf, angka, spasi, underscore, titik, tanda hubung
     private const string AllowedPattern = @"^[a-zA-Z0-9 _.\-]+$";

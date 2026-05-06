@@ -1,14 +1,21 @@
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
-using Firebase.Extensions;
-using Firebase.Firestore;
 using UnityEngine;
+using UnityEngine.Networking;
+
+// #if !UNITY_WEBGL || UNITY_EDITOR
+// using Firebase;
+// using Firebase.Extensions;
+// using Firebase.Firestore;
+// #endif
 
 public class FirebaseManager : MonoBehaviour
 {
     public static FirebaseManager Instance;
-    private FirebaseFirestore db;
+
+    [SerializeField] private string apiBaseUrl = "https://mitimi-tiki2d-api.vercel.app";
 
     void Awake()
     {
@@ -22,158 +29,83 @@ public class FirebaseManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        db = FirebaseFirestore.DefaultInstance;
     }
 
     public void SaveGameSession(GameSessionData data)
     {
-        StartCoroutine(SaveGameSessionRoutine(data));
-    }
-
-    private IEnumerator SaveGameSessionRoutine(GameSessionData data)
-    {
-        Debug.Log($"[FirebaseManager] SaveGameSessionRoutine start. Questions: {data.questions?.Count ?? 0}");
-        float timeoutSeconds = 10f;
-        float timer = 0f;
-
-        DocumentReference sessionRef = db.Collection("plays").Document();
-
-        Dictionary<string, object> sessionDoc = new Dictionary<string, object>
-        {
-            { "playerName",    data.playerName },
-            { "pi",            data.pi },
-            { "finalScore",    data.finalScore },
-            { "finalLevel",    data.finalLevel },
-            { "totalQuestion", data.totalQuestion },
-            { "totalCorrect",  data.totalCorrect },
-            { "playedAt",      data.playedAt }
-        };
-
-        var sessionTask = sessionRef.SetAsync(sessionDoc);
-
-        // Tunggu sampai selesai ATAU timeout
-        while (!sessionTask.IsCompleted && timer < timeoutSeconds)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        if (!sessionTask.IsCompleted)
-        {
-            // Timeout pada simpan session
-            Debug.LogError($"Gagal simpan session: TIMEOUT setelah {timeoutSeconds} detik");
-            LoadingContext.NotifyFirebaseDone(); // lanjutkan loading, walau gagal simpan
-            yield break;
-        }
-
-        if (sessionTask.Exception != null)
-        {
-            Debug.LogError("Gagal simpan session: " + sessionTask.Exception);
-            LoadingContext.NotifyFirebaseDone();
-            yield break;
-        }
-
-        // Reset timer untuk loop pertanyaan
-        LoadingContext.NotifyFirebaseDone();
-        timer = 0f;
-
-        foreach (QuestionResult q in data.questions)
-        {
-            Dictionary<string, object> questionDoc = new Dictionary<string, object>
-            {
-                { "questionNumber", q.questionNumber },
-                { "question",       q.question },
-                { "answerA",        q.answerA },
-                { "answerB",        q.answerB },
-                { "answerC",        q.answerC },
-                { "answerD",        q.answerD },
-                { "correctAnswer",  q.correctAnswer },
-                { "playerAnswer",   q.playerAnswer },
-                { "pi",             q.pi },
-                { "score",          q.score },
-                { "level",          q.level },
-                { "life",           q.life },
-                { "time",           q.time },
-                { "timeUsed",       q.timeUsed },
-                { "isCorrect",      q.isCorrect },
-                { "isTimeout",      q.isTimeout },
-                { "created",        q.created }
-            };
-
-            var questionTask = sessionRef.Collection("questions").Document().SetAsync(questionDoc);
-
-            timer = 0f;
-            while (!questionTask.IsCompleted && timer < timeoutSeconds)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
-
-            if (!questionTask.IsCompleted)
-            {
-                Debug.LogError($"Gagal simpan question (TIMEOUT setelah {timeoutSeconds} detik)");
-                // lanjut loop berikut (atau bisa juga break; kalau mau stop di sini)
-                continue;
-            }
-
-            if (questionTask.Exception != null)
-            {
-                Debug.LogError("Gagal simpan question: " + questionTask.Exception);
-            }
-        }
-
-        Debug.Log("Semua data sesi selesai diproses (berhasil/gagal/timeout).");
-
-        // Beritahu LoadingManager bahwa Firebase sudah selesai (berapapun hasilnya)
-        LoadingContext.NotifyFirebaseDone();
+        StartCoroutine(SaveGameSessionWebRoutine(data));
     }
 
     public void LoadLeaderboard(Action<List<RankingEntryData>> onComplete)
     {
-        if (db == null)
+        StartCoroutine(LoadLeaderboardWebRoutine(onComplete));
+    }
+
+    private IEnumerator SaveGameSessionWebRoutine(GameSessionData data)
+    {
+        string url = apiBaseUrl + "/api/play";
+        string json = JsonUtility.ToJson(data);
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.timeout = 15;
+
+        yield return request.SendWebRequest();
+
+        #if UNITY_2020_1_OR_NEWER
+            bool hasError = request.result == UnityWebRequest.Result.ConnectionError ||
+                            request.result == UnityWebRequest.Result.ProtocolError;
+        #else
+            bool hasError = request.isNetworkError || request.isHttpError;
+        #endif
+
+        if (hasError)
         {
-            Debug.LogError("FirebaseManager: Firestore db is NULL. Pastikan sudah diinisialisasi di Awake().");
-            onComplete?.Invoke(new List<RankingEntryData>());
-            return;
+            Debug.LogError("[WebAPI] SaveGameSession failed: " + request.error);
+            Debug.LogError("[WebAPI] Response: " + request.downloadHandler.text);
         }
-        
-        db.Collection("plays")
-          .OrderByDescending("pi")
-          .OrderByDescending("playedAt")
-          .Limit(50)
-          .GetSnapshotAsync()
-          .ContinueWithOnMainThread(task =>
-          {
-              List<RankingEntryData> result = new List<RankingEntryData>();
+        else
+        {
+            Debug.Log("[WebAPI] SaveGameSession success: " + request.downloadHandler.text);
+        }
 
-              if (task.IsFaulted || task.IsCanceled)
-              {
-                  Debug.LogError("Failed to load leaderboard: " + task.Exception);
-                  onComplete?.Invoke(result);
-                  return;
-              }
+        LoadingContext.NotifyFirebaseDone();
+    }
 
-              QuerySnapshot snapshot = task.Result;
+    private IEnumerator LoadLeaderboardWebRoutine(Action<List<RankingEntryData>> onComplete)
+    {
+        string url = apiBaseUrl + "/api/leaderboard";
 
-              foreach (DocumentSnapshot doc in snapshot.Documents)
-              {
-                  Dictionary<string, object> data = doc.ToDictionary();
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        request.timeout = 15;
 
-                  RankingEntryData entry = new RankingEntryData
-                  {
-                      playerName = data.ContainsKey("playerName") ? data["playerName"].ToString() : "-",
-                      playedAt = data.ContainsKey("playedAt") ? data["playedAt"].ToString() : "-",
-                      finalLevel = data.ContainsKey("finalLevel") ? Convert.ToInt32(data["finalLevel"]) : 0,
-                      totalQuestion = data.ContainsKey("totalQuestion") ? Convert.ToInt32(data["totalQuestion"]) : 0,
-                      totalCorrect = data.ContainsKey("totalCorrect") ? Convert.ToInt32(data["totalCorrect"]) : 0,
-                      finalScore = data.ContainsKey("finalScore") ? Convert.ToInt32(data["finalScore"]) : 0
-                  };
+        yield return request.SendWebRequest();
 
-                  result.Add(entry);
-              }
+        #if UNITY_2020_1_OR_NEWER
+                bool hasError = request.result == UnityWebRequest.Result.ConnectionError ||
+                                request.result == UnityWebRequest.Result.ProtocolError;
+        #else
+                bool hasError = request.isNetworkError || request.isHttpError;
+        #endif
 
-              onComplete?.Invoke(result);
-          });
+        if (hasError)
+        {
+            Debug.LogError("[WebAPI] LoadLeaderboard failed: " + request.error);
+            Debug.LogError("[WebAPI] Response: " + request.downloadHandler.text);
+            onComplete?.Invoke(new List<RankingEntryData>());
+            yield break;
+        }
+
+        string json = request.downloadHandler.text;
+        LeaderboardResponse response = JsonUtility.FromJson<LeaderboardResponse>(json);
+
+        if (response != null && response.entries != null)
+            onComplete?.Invoke(response.entries);
+        else
+            onComplete?.Invoke(new List<RankingEntryData>());
     }
 }

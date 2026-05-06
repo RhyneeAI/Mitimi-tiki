@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
@@ -502,7 +503,8 @@ public class GameManager : MonoBehaviour
         else
         {
             // Warna normal di luar level 11
-            question.color = colorNormal;
+            ColorUtility.TryParseHtmlString("#FF6A06", out Color myColor);
+            question.color = myColor;
             score.color = colorNormal;
             health.color = colorNormal;
             // timer diatur dinamis di Update(), jadi di sini cukup default:
@@ -623,12 +625,16 @@ public class GameManager : MonoBehaviour
             case OperationType.Add:
             {
                 int lMin, lMax, rMin, rMax;
-                GetAddDigitsByLevel(levelValue, out lMin, out lMax, out rMin, out rMax);
+                float zeroTo5, fiveTo9;
 
-                a = RandomNumberWithDigitRange(lMin, lMax);
-                b = RandomNumberWithDigitRange(rMin, rMax);
+                GetAddDigitsByLevel(levelValue,
+                    out lMin, out lMax,
+                    out rMin, out rMax,
+                    out zeroTo5, out fiveTo9);
 
-                // kadang tukar posisi agar variasi 3d+2d dan 2d+3d muncul
+                a = RandomNumberWithDigitRangeWeighted(lMin, lMax, zeroTo5, fiveTo9);
+                b = RandomNumberWithDigitRangeWeighted(rMin, rMax, zeroTo5, fiveTo9);
+
                 if (Random.Range(0, 2) == 0)
                 {
                     int temp = a;
@@ -644,10 +650,15 @@ public class GameManager : MonoBehaviour
             case OperationType.Subtract:
             {
                 int lMin, lMax, rMin, rMax;
-                GetSubDigitsByLevel(levelValue, out lMin, out lMax, out rMin, out rMax);
+                float zeroTo5, fiveTo9;
 
-                a = RandomNumberWithDigitRange(lMin, lMax);
-                b = RandomNumberWithDigitRange(rMin, rMax);
+                GetSubDigitsByLevel(levelValue,
+                    out lMin, out lMax,
+                    out rMin, out rMax,
+                    out zeroTo5, out fiveTo9);
+
+                a = RandomNumberWithDigitRangeWeighted(lMin, lMax, zeroTo5, fiveTo9);
+                b = RandomNumberWithDigitRangeWeighted(rMin, rMax, zeroTo5, fiveTo9);
 
                 if (Random.Range(0, 2) == 0)
                 {
@@ -671,7 +682,13 @@ public class GameManager : MonoBehaviour
             case OperationType.Multiply:
             {
                 int lMin, lMax, rMin, rMax, maxResultDigits;
-                GetMultiplyDigitsByLevel(levelValue, out lMin, out lMax, out rMin, out rMax, out maxResultDigits);
+                float zeroTo5, fiveTo9;
+
+                GetMultiplyDigitsByLevel(levelValue,
+                    out lMin, out lMax,
+                    out rMin, out rMax,
+                    out zeroTo5, out fiveTo9,
+                    out maxResultDigits);
 
                 if (lMax == 0 || rMax == 0)
                 {
@@ -691,8 +708,9 @@ public class GameManager : MonoBehaviour
                         return;
                     }
 
-                    a = RandomNumberWithDigitRange(lMin, lMax);
-                    b = RandomNumberWithDigitRange(rMin, rMax);
+                    a = RandomNumberWithDigitRangeWeighted(lMin, lMax, zeroTo5, fiveTo9);
+                    b = RandomNumberWithDigitRangeWeighted(rMin, rMax, zeroTo5, fiveTo9);
+
                     result = a * b;
 
                 } while (GetDigitCount(result) > maxResultDigits);
@@ -722,20 +740,47 @@ public class GameManager : MonoBehaviour
         return Random.Range(minValue, maxValue + 1);
     }
 
+    int RandomNumberWithDigitRangeWeighted(int minDigits, int maxDigits, float zeroTo5, float fiveTo9)
+    {
+        minDigits = Mathf.Clamp(minDigits, 1, 9);
+        maxDigits = Mathf.Clamp(maxDigits, minDigits, 9);
+
+        int chosenDigits = Random.Range(minDigits, maxDigits + 1);
+
+        if (chosenDigits == 1)
+        {
+            float total = zeroTo5 + fiveTo9;
+            if (total <= 0f)
+                return Random.Range(0, 10);
+
+            float r = Random.value * total;
+
+            if (r <= zeroTo5)
+                return Random.Range(0, 6);   // 0..5
+
+            return Random.Range(6, 10);      // 6..9
+        }
+
+        int minValue = (int)Mathf.Pow(10, chosenDigits - 1);
+        int maxValue = (int)Mathf.Pow(10, chosenDigits) - 1;
+        return Random.Range(minValue, maxValue + 1);
+    }
+
     void GenerateDivisionOperands(int levelValue, out int a, out int b, out int result, out string opSymbol)
     {
         int dMin, dMax, vMin, vMax;
         GetDivisionDigitsByLevel(levelValue, out dMin, out dMax, out vMin, out vMax);
 
-        a = 1; b = 1; result = 1;
+        a = 1;
+        b = 1;
+        result = 1;
         opSymbol = "÷";
 
         if (dMax == 0 || vMax == 0)
-        {
-            // level ini tidak mengizinkan division, fallback
-            a = 1; b = 1; result = 1;
             return;
-        }
+
+        float zeroTo5 = levelValue <= 2 ? 1f : levelValue <= 4 ? 0.6f : 0.3f;
+        float fiveTo9 = 1f - zeroTo5;
 
         int safety = 0;
         do
@@ -743,12 +788,14 @@ public class GameManager : MonoBehaviour
             safety++;
             if (safety > 100)
             {
-                a = 4; b = 2; result = 2;
+                a = 4;
+                b = 2;
+                result = 2;
                 return;
             }
 
-            b = RandomNumberWithDigitRange(vMin, vMax);
-            result = RandomNumberWithDigitRange(vMin, vMax);
+            b = RandomNumberWithDigitRangeWeighted(vMin, vMax, zeroTo5, fiveTo9);
+            result = RandomNumberWithDigitRangeWeighted(vMin, vMax, zeroTo5, fiveTo9);
             a = b * result;
 
         } while (GetDigitCount(a) < dMin || GetDigitCount(a) > dMax);
@@ -761,127 +808,165 @@ public class GameManager : MonoBehaviour
         return value.ToString().Length;
     }
 
+    void GetSubDigitsByLevel(int levelValue,
+                         out int leftMin, out int leftMax,
+                         out int rightMin, out int rightMax,
+                         out float zeroTo5, out float fiveTo9)
+    {
+        GetAddDigitsByLevel(levelValue,
+            out leftMin, out leftMax,
+            out rightMin, out rightMax,
+            out zeroTo5, out fiveTo9);
+    }
+
     void GetAddDigitsByLevel(int levelValue,
                          out int leftMin, out int leftMax,
-                         out int rightMin, out int rightMax)
+                         out int rightMin, out int rightMax,
+                         out float zeroTo5, out float fiveTo9)
     {
         switch (levelValue)
         {
             case 1:
-                leftMin = 1; leftMax = 1; 
+                leftMin = 1; leftMax = 1;
                 rightMin = 1; rightMax = 1;
+                zeroTo5 = 1f;   fiveTo9 = 0f;      // hanya 0–5
                 break;
+
             case 2:
-                leftMin = 1; leftMax = 2; // 1–2 digit
+                leftMin = 1; leftMax = 1;
                 rightMin = 1; rightMax = 1;
+                zeroTo5 = 0.5f; fiveTo9 = 0.5f;    // 0–5 dan 6–9 seimbang
                 break;
+
             case 3:
-                leftMin = 2; leftMax = 2;
-                rightMin = 1; rightMax = 1; // 2d + 1–2d
+                leftMin = 1; leftMax = 2;
+                rightMin = 1; rightMax = 1;
+                zeroTo5 = 1f;   fiveTo9 = 0f;      // masuk 2 digit, tapi angka tetap kecil
                 break;
+
             case 4:
-                leftMin = 2; leftMax = 2;
-                rightMin = 1; rightMax = 2; // 2d + 1–2d
+                leftMin = 1; leftMax = 2;
+                rightMin = 1; rightMax = 2;
+                zeroTo5 = 0.5f; fiveTo9 = 0.5f;
                 break;
+
             case 5:
                 leftMin = 2; leftMax = 2;
-                rightMin = 2; rightMax = 2; // 2d + 1–2d
+                rightMin = 1; rightMax = 2;
+                zeroTo5 = 0.4f; fiveTo9 = 0.6f;    // mulai lebih sering 6–9
                 break;
+
             case 6:
-                leftMin = 2; leftMax = 3; // 2–3d
-                rightMin = 2; rightMax = 2; // 2d pasti
-                break;
-            case 7:
-                leftMin = 3; leftMax = 3;
+                leftMin = 2; leftMax = 2;
                 rightMin = 2; rightMax = 2;
+                zeroTo5 = 0.2f; fiveTo9 = 0.8f;
                 break;
+
+            case 7:
+                leftMin = 2; leftMax = 3;
+                rightMin = 2; rightMax = 2;
+                zeroTo5 = 0.4f; fiveTo9 = 0.6f;
+                break;
+
             case 8:
-                leftMin = 3; leftMax = 3;
+                leftMin = 2; leftMax = 3;
                 rightMin = 2; rightMax = 3;
+                zeroTo5 = 0.25f; fiveTo9 = 0.75f;
                 break;
+
             case 9:
                 leftMin = 3; leftMax = 3;
-                rightMin = 3; rightMax = 3;
+                rightMin = 2; rightMax = 3;
+                zeroTo5 = 0.1f; fiveTo9 = 0.9f;
                 break;
+
             case 10:
                 leftMin = 3; leftMax = 4;
-                rightMin = 3; rightMax = 3;
+                rightMin = 2; rightMax = 3;
+                zeroTo5 = 0.25f; fiveTo9 = 0.75f;
                 break;
-            default: // 11+
-                leftMin = 4; leftMax = 4;
+
+            default:
+                leftMin = 3; leftMax = 4;
                 rightMin = 3; rightMax = 4;
+                zeroTo5 = 0.05f; fiveTo9 = 0.95f;    // level tinggi: hampir selalu angka besar
                 break;
         }
-    }
-
-    void GetSubDigitsByLevel(int levelValue,
-                         out int leftMin, out int leftMax,
-                         out int rightMin, out int rightMax)
-    {
-        // Bisa sama dengan Add; kalau mau lebih jahat sedikit, tingkatkan rightMin
-        GetAddDigitsByLevel(levelValue, out leftMin, out leftMax, out rightMin, out rightMax);
     }
 
     void GetMultiplyDigitsByLevel(int levelValue,
                               out int leftMin, out int leftMax,
                               out int rightMin, out int rightMax,
+                              out float zeroTo5, out float fiveTo9,
                               out int maxResultDigits)
     {
         switch (levelValue)
         {
             case 1:
-                leftMin = leftMax = rightMin = rightMax = 0;
-                maxResultDigits = 0;
+                leftMin = 1; leftMax = 1;
+                rightMin = 1; rightMax = 1;
+                zeroTo5 = 1f;   fiveTo9 = 0f;      // hanya 0–5
+                maxResultDigits = 2;
                 break;
             case 2:
                 leftMin = 1; leftMax = 1;
                 rightMin = 1; rightMax = 1;
+                zeroTo5 = 0.5f; fiveTo9 = 0.5f;    // 0–5 dan 6–9 seimbang
                 maxResultDigits = 2;
                 break;
             case 3:
                 leftMin = 1; leftMax = 2;
                 rightMin = 1; rightMax = 1;
+                zeroTo5 = 1f;   fiveTo9 = 0f;          // 1-2d × 1d
                 maxResultDigits = 2;
                 break;
             case 4:
                 leftMin = 2; leftMax = 2;
                 rightMin = 1; rightMax = 1;
-                maxResultDigits = 3;
+                zeroTo5 = 0.5f; fiveTo9 = 0.5f;          // 2d × 1d
+                maxResultDigits = 2;
                 break;
             case 5:
                 leftMin = 2; leftMax = 2;
                 rightMin = 1; rightMax = 2;
+                zeroTo5 = 0.5f; fiveTo9 = 0.5f;          // 2d × 1-2d
                 maxResultDigits = 3;
                 break;
             case 6:
                 leftMin = 2; leftMax = 2;
                 rightMin = 2; rightMax = 2;
+                zeroTo5 = 0.85f; fiveTo9 = 0.15f;          // 2d × 2d (lompatan besar, wajar di level 6)
                 maxResultDigits = 3;
                 break;
             case 7:
-                leftMin = 2; leftMax = 3;
+                leftMin = 2; leftMax = 2;
                 rightMin = 2; rightMax = 2;
+                zeroTo5 = 0.25f; fiveTo9 = 0.75f;         // transisi ke 3d
                 maxResultDigits = 3;
                 break;
             case 8:
-                leftMin = 3; leftMax = 3;
+                leftMin = 2; leftMax = 3;
                 rightMin = 2; rightMax = 2;
-                maxResultDigits = 4;
+                zeroTo5 = 0.5f; fiveTo9 = 0.5f;
+                maxResultDigits = 3;
                 break;
             case 9:
-                leftMin = 3; leftMax = 3;
+                leftMin = 2; leftMax = 3;
                 rightMin = 2; rightMax = 3;
-                maxResultDigits = 4;
+                zeroTo5 = 0.7f; fiveTo9 = 0.3f;
+                maxResultDigits = 3;
                 break;
             case 10:
-                leftMin = 3; leftMax = 3;
-                rightMin = 3; rightMax = 3;
+                leftMin = 2; leftMax = 4;
+                rightMin = 2; rightMax = 3;
+                zeroTo5 = 0.15f; fiveTo9 = 0.85f;
                 maxResultDigits = 4;
                 break;
             default:
-                leftMin = 3; leftMax = 4;
+                leftMin = 2; leftMax = 4;
                 rightMin = 3; rightMax = 3;
-                maxResultDigits = 5;
+                zeroTo5 = 0.15f; fiveTo9 = 0.85f;
+                maxResultDigits = 4;
                 break;
         }
     }
@@ -894,41 +979,47 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 dividendMin = dividendMax = 0;
-                divisorMin = divisorMax = 0;
+                divisorMin = divisorMax = 0;   // belum ada
                 break;
             case 2:
-            case 3:
                 dividendMin = 1; dividendMax = 1;
-                divisorMin = 1; divisorMax = 1; // 1d / 1d
+                divisorMin = 1; divisorMax = 1; // hasil pasti bulat, angka kecil
+                break;
+            case 3:
+                dividendMin = 1; dividendMax = 2;
+                divisorMin = 1; divisorMax = 1; // 1-2d / 1d, perlahan naik
                 break;
             case 4:
+                dividendMin = 2; dividendMax = 2;
+                divisorMin = 1; divisorMax = 1; // 2d / 1d stabil dulu
+                break;
             case 5:
-                dividendMin = 1; dividendMax = 2;
-                divisorMin = 1; divisorMax = 1; // 1d / 1d
+                dividendMin = 2; dividendMax = 2;
+                divisorMin = 1; divisorMax = 1; // sama, tapi soal add/multiply naik
                 break;
             case 6:
-                dividendMin = 2; dividendMax = 2;
-                divisorMin = 1; divisorMax = 1; // 2d / 1d
+                dividendMin = 2; dividendMax = 3;
+                divisorMin = 1; divisorMax = 1; // transisi ke 3d dividend
                 break;
             case 7:
-                dividendMin = 2; dividendMax = 3;
-                divisorMin = 1; divisorMax = 2; // 2d / 1–2d
+                dividendMin = 3; dividendMax = 3;
+                divisorMin = 1; divisorMax = 2; // 3d / 1-2d
                 break;
             case 8:
                 dividendMin = 3; dividendMax = 3;
-                divisorMin = 1; divisorMax = 2; // 2d / 1–2d
+                divisorMin = 1; divisorMax = 2; // 3d / 1-2d stabil
                 break;
             case 9:
                 dividendMin = 3; dividendMax = 3;
-                divisorMin = 2; divisorMax = 2; // 3d / 1d
+                divisorMin = 2; divisorMax = 2; // 3d / 2d
                 break;
             case 10:
                 dividendMin = 3; dividendMax = 4;
-                divisorMin = 2; divisorMax = 2; // 3d / 1–2d
+                divisorMin = 2; divisorMax = 2; // transisi ke 4d dividend
                 break;
-            default: // 11+
+            default:
                 dividendMin = 4; dividendMax = 4;
-                divisorMin = 2; divisorMax = 2; // 4d / 1–2d
+                divisorMin = 2; divisorMax = 3; // 4d / 2-3d
                 break;
         }
     }
