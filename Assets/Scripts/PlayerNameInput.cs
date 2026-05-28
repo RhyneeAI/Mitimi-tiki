@@ -3,13 +3,18 @@ using UnityEngine;
 
 public class PlayerNameInput : MonoBehaviour
 {
-    [SerializeField] private TMP_Text informationMessage; // drag InformationMessage
+    [SerializeField] private TMP_Text informationMessage; 
 
     private TMP_InputField inputField;
 
     void Awake()
     {
-        inputField = GetComponent<TMP_InputField>(); // otomatis ambil dari PlayerName
+        inputField = GetComponent<TMP_InputField>(); 
+        string previousName = PlayerPrefs.GetString("LastPlayerName", "");
+        if(previousName != "")
+        {
+            inputField.text = previousName;
+        }
     }
 
     public bool TrySubmit()

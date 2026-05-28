@@ -37,6 +37,8 @@ public static class PlayerManager
             return "Nama hanya boleh huruf, angka, spasi, . _ -";
 
         _playerName = input;
+        PlayerPrefs.SetString("LastPlayerName", input);
+        PlayerPrefs.Save();
         return null; 
     }
 
